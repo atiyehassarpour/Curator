@@ -47,6 +47,7 @@
   const closeMenu = () => {
     nav.classList.remove("is-open");
     menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", root.lang === "en" ? "Open navigation menu" : "باز کردن فهرست ناوبری");
   };
 
   languageButton.addEventListener("click", () => {
@@ -56,6 +57,9 @@
   menuButton.addEventListener("click", () => {
     const expanded = menuButton.getAttribute("aria-expanded") === "true";
     menuButton.setAttribute("aria-expanded", String(!expanded));
+    menuButton.setAttribute("aria-label", expanded
+      ? (root.lang === "en" ? "Open navigation menu" : "باز کردن فهرست ناوبری")
+      : (root.lang === "en" ? "Close navigation menu" : "بستن فهرست ناوبری"));
     nav.classList.toggle("is-open", !expanded);
   });
 
