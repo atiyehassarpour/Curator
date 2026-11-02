@@ -21,4 +21,4 @@ No internal pages, directories, editorial/admin dashboards, or other modules are
 
 ## Documentation
 
-Project proposal, product requirements, end-to-end workflows, and technical/database architecture are maintained under `docs/` as they are validated against the approved source documents.
+Project proposal, product requirements, end-to-end workflows, and technical/database architecture are maintained under `docs/` as they are validated against the approved source documents. Homepage design decisions and local preview instructions are documented in `docs/05-homepage-design-review.md` and `docs/06-homepage-preview-guide.md`.
