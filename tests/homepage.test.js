@@ -13,7 +13,7 @@ test("homepage has unique IDs and all in-page links resolve", () => {
   const idSet = new Set(ids);
   const anchors = [...html.matchAll(/\bhref=["']#([^"']+)["']/g)].map((match) => match[1]);
   assert.ok(anchors.length > 0, "expected in-page navigation links");
-  for (const anchor of anchors) assert.ok(idSet.has(anchor), \`missing target #\${anchor}\`);
+  for (const anchor of anchors) assert.ok(idSet.has(anchor), "missing target #" + anchor);
 });
 
 test("homepage exposes Persian and English content for language switching", () => {
