@@ -26,7 +26,9 @@
       element.innerHTML = isEnglish ? element.dataset.en : element.dataset.fa;
     });
     languageButton.setAttribute("aria-pressed", String(isEnglish));
-    languageButton.setAttribute("aria-label", isEnglish ? "Switch to Persian" : "Switch to English");
+    languageButton.setAttribute("aria-label", isEnglish ? "Switch to Persian" : "تغییر زبان به انگلیسی");
+    nav.setAttribute("aria-label", isEnglish ? "Main navigation" : "ناوبری اصلی");
+    menuButton.setAttribute("aria-label", isEnglish ? "Open navigation menu" : "باز کردن فهرست ناوبری");
     document.title = isEnglish
       ? "Contemporary Art Study Group"
       : "گروه مطالعاتی هنر معاصر | Contemporary Art Study Group";
