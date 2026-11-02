@@ -4,8 +4,19 @@
   const menuButton = document.querySelector(".menu-toggle");
   const nav = document.querySelector(".primary-nav");
   const year = document.querySelector("#year");
+  const storageKey = "casg-language";
 
-  const setLanguage = (language) => {
+  const readPreferredLanguage = () => {
+    const queryLanguage = new URLSearchParams(window.location.search).get("lang");
+    if (queryLanguage === "fa" || queryLanguage === "en") return queryLanguage;
+    try {
+      const stored = window.localStorage.getItem(storageKey);
+      if (stored === "fa" || stored === "en") return stored;
+    } catch (_) {}
+    return "fa";
+  };
+
+  const setLanguage = (language, persist = true) => {
     const isEnglish = language === "en";
     root.lang = isEnglish ? "en" : "fa";
     root.dir = isEnglish ? "ltr" : "rtl";
@@ -23,6 +34,17 @@
     description.content = isEnglish
       ? "An independent platform for research, documentation, and dialogue around contemporary art, bringing perspectives from Iran into an international context."
       : "گروه مطالعاتی هنر معاصر؛ بستری مستقل برای پژوهش، مستندسازی و گفت‌وگوی حرفه‌ای درباره هنر معاصر با تمرکز بر ایران در زمینه‌ای بین‌المللی.";
+    if (persist) {
+      try { window.localStorage.setItem(storageKey, language); } catch (_) {}
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", language);
+      window.history.replaceState({}, "", url);
+    }
+  };
+
+  const closeMenu = () => {
+    nav.classList.remove("is-open");
+    menuButton.setAttribute("aria-expanded", "false");
   };
 
   languageButton.addEventListener("click", () => {
@@ -36,12 +58,17 @@
   });
 
   nav.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("is-open");
-      menuButton.setAttribute("aria-expanded", "false");
-    });
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!nav.contains(event.target) && !menuButton.contains(event.target)) closeMenu();
   });
 
   year.textContent = new Date().getFullYear();
-  setLanguage("fa");
+  setLanguage(readPreferredLanguage(), false);
 })();
