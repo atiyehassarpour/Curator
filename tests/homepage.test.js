@@ -30,6 +30,8 @@ test("navigation controls have accessible state and close behavior", () => {
   assert.match(js, /setAttribute\("aria-expanded"/);
   assert.match(js, /event\.key === "Escape"/);
   assert.match(js, /!nav\.contains\(event\.target\)/);
+  assert.match(js, /nav\.setAttribute\("aria-label"/);
+  assert.match(js, /Close navigation menu/);
 });
 
 test("responsive and reduced-motion styles are present", () => {
