@@ -57,7 +57,7 @@ The current milestone documentation explicitly excludes internal pages, director
 - [x] Language query parameter and persistence logic implemented.
 - [x] Keyboard escape and outside-click menu closing implemented.
 - [ ] Browser-rendered visual QA at the four viewport/language combinations.
-- [ ] Automated HTML/CSS/accessibility validation.
+- [x] Added dependency-free Node regression tests for anchor integrity, bilingual content, navigation behavior, responsive breakpoints, and reduced-motion support.\n- [x] Added a GitHub Actions workflow to run the regression tests on pull requests and relevant pushes.\n- [ ] Browser-rendered visual QA and a full automated accessibility audit remain pending.
 - [ ] Owner approval of final copy, identity assets, and contact details.
 
 **Important:** The current working environment did not provide a browser-rendering or screenshot QA session. The implementation has been updated, but no claim is made that pixel-level visual QA has been completed.
