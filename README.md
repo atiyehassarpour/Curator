@@ -35,6 +35,6 @@ Then open:
 
 Use `?lang=en` for English. The language selection is also retained between pages in local storage.
 
-## Documentation
+## Browser visual QA\n\nAutomated Playwright checks cover the homepage, Research, and Journal in Persian and English at desktop and mobile sizes, plus 320px overflow checks. Run `npm install`, `npx playwright install chromium`, then `npm run test:visual`. Screenshots are saved under `test-results/`. See [the browser visual QA guide](docs/08-browser-visual-qa.md) for details.\n\n## Documentation
 
 Project brief, requirements, workflows, and technical architecture are maintained under `docs/`. Homepage review and preview instructions are in `docs/05-homepage-design-review.md` and `docs/06-homepage-preview-guide.md`. The Research and Journal design and content rules are documented in `docs/07-research-journal-design.md`.
