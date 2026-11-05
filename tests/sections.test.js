@@ -32,6 +32,8 @@ for (const page of pages) {
     assert.match(html, /نمونه/);
     assert.match(html, /PLACEHOLDER|PREVIEW/i);
     assert.match(html, /rights|حقوق|منابع|sources/i);
+    assert.match(html, /data-aria-fa=/);
+    assert.match(html, /data-aria-en=/);
   });
 }
 
