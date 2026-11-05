@@ -2,15 +2,15 @@ name: Project quality checks
 
 on:
   pull_request:
-    branches: [main]
-  push:
     branches: [main, "design/**"]
+  push:
+    branches: [main, "design/**", "feat/**"]
 
 permissions:
   contents: read
 
 jobs:
-  homepage-checks:
+  project-checks:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
