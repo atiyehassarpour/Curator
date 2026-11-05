@@ -2,7 +2,7 @@ name: Project quality checks
 
 on:
   pull_request:
-    branches: [main, "design/**"]
+    branches: [main, "design/**", "feat/**"]
   push:
     branches: [main, "design/**", "feat/**"]
 
@@ -19,7 +19,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install project dependencies
+        run: npm install
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
       - name: Check JavaScript syntax
-        run: node --check app.js && node --check tests/homepage.test.js && node --check tests/sections.test.js
+        run: node --check app.js && node --check playwright.config.js && node --check tests/homepage.test.js && node --check tests/sections.test.js && node --check tests/site.visual.spec.js
       - name: Run project regression tests
-        run: node --test tests/*.test.js
+        run: npm test
+      - name: Run browser visual and responsive checks
+        run: npm run test:visual
+      - name: Upload browser screenshots and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-visual-qa
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
+          retention-days: 14
