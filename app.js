@@ -30,12 +30,13 @@
     nav.setAttribute("aria-label", isEnglish ? "Main navigation" : "ناوبری اصلی");
     menuButton.setAttribute("aria-label", isEnglish ? "Open navigation menu" : "باز کردن فهرست ناوبری");
     document.title = isEnglish
-      ? "Contemporary Art Study Group"
-      : "گروه مطالعاتی هنر معاصر | Contemporary Art Study Group";
+      ? (document.body.dataset.titleEn || "Contemporary Art Study Group")
+      : (document.body.dataset.titleFa || "گروه مطالعاتی هنر معاصر | Contemporary Art Study Group");
     const description = document.querySelector('meta[name="description"]');
-    description.content = isEnglish
-      ? "An independent platform for research, documentation, and dialogue around contemporary art, bringing perspectives from Iran into an international context."
-      : "گروه مطالعاتی هنر معاصر؛ بستری مستقل برای پژوهش، مستندسازی و گفت‌وگوی حرفه‌ای درباره هنر معاصر با تمرکز بر ایران در زمینه‌ای بین‌المللی.";
+    if (description) {
+      const localizedDescription = isEnglish ? description.dataset.en : description.dataset.fa;
+      if (localizedDescription) description.content = localizedDescription;
+    }
     if (persist) {
       try { window.localStorage.setItem(storageKey, language); } catch (_) {}
       const url = new URL(window.location.href);
@@ -56,25 +57,21 @@
 
   menuButton.addEventListener("click", () => {
     const expanded = menuButton.getAttribute("aria-expanded") === "true";
+    nav.classList.toggle("is-open", !expanded);
     menuButton.setAttribute("aria-expanded", String(!expanded));
     menuButton.setAttribute("aria-label", expanded
       ? (root.lang === "en" ? "Open navigation menu" : "باز کردن فهرست ناوبری")
       : (root.lang === "en" ? "Close navigation menu" : "بستن فهرست ناوبری"));
-    nav.classList.toggle("is-open", !expanded);
   });
 
-  nav.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
-
+  nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeMenu();
   });
-
   document.addEventListener("click", (event) => {
     if (!nav.contains(event.target) && !menuButton.contains(event.target)) closeMenu();
   });
 
-  year.textContent = new Date().getFullYear();
+  if (year) year.textContent = new Date().getFullYear();
   setLanguage(readPreferredLanguage(), false);
 })();
