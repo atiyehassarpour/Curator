@@ -20,7 +20,7 @@ Stop the server with `Ctrl+C`.
 
 If the `py` command is unavailable but Python is installed, use `python -m http.server 8000`.
 
-## Four-state visual review
+## Four-state visual review\n\nReview the homepage, Research, and Journal pages in each language/device combination:
 
 Use browser developer tools and review each combination:
 
