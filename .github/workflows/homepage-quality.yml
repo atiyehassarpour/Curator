@@ -20,6 +20,6 @@ jobs:
         with:
           node-version: 22
       - name: Check JavaScript syntax
-        run: node --check app.js && node --check tests/homepage.test.js
+        run: node --check app.js && node --check tests/homepage.test.js && node --check tests/sections.test.js
       - name: Run homepage regression tests
-        run: node --test tests/homepage.test.js
+        run: node --test tests/*.test.js
