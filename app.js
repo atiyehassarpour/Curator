@@ -25,6 +25,9 @@
     document.querySelectorAll("[data-fa][data-en]").forEach((element) => {
       element.innerHTML = isEnglish ? element.dataset.en : element.dataset.fa;
     });
+    document.querySelectorAll("[data-aria-fa][data-aria-en]").forEach((element) => {
+      element.setAttribute("aria-label", isEnglish ? element.dataset.ariaEn : element.dataset.ariaFa);
+    });
     languageButton.setAttribute("aria-pressed", String(isEnglish));
     languageButton.setAttribute("aria-label", isEnglish ? "Switch to Persian" : "تغییر زبان به انگلیسی");
     nav.setAttribute("aria-label", isEnglish ? "Main navigation" : "ناوبری اصلی");
