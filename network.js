@@ -1,6 +1,6 @@
 (() => {
   const DATA_URL = "data/curator-network.json";
-  const collections = ["curators", "exhibitions", "galleries", "museums", "artists", "projects", "publications"];
+  const collections = ["curators", "exhibitions", "galleries", "museums", "artists", "projects", "publications"];\n  const collectionNames = { curator:"curators", exhibition:"exhibitions", gallery:"galleries", museum:"museums", artist:"artists", project:"projects", publication:"publications" };
   const entityLabels = {
     curator:{fa:"کیوریتور",en:"Curator"}, exhibition:{fa:"نمایشگاه",en:"Exhibition"},
     gallery:{fa:"گالری",en:"Gallery"}, museum:{fa:"موزه",en:"Museum"},
@@ -14,7 +14,7 @@
     documented:{fa:"مستندشده در",en:"Documented in"}, associated:{fa:"مرتبط با",en:"Associated with"}
   };
   const localized = (value, lang) => value && typeof value === "object" ? (value[lang] || value.en || value.fa || "") : (typeof value === "string" ? value : "");
-  const collectionFor = (type) => type === "curator" ? "curators" : type + "s";
+  const collectionFor = (type) => collectionNames[type] || "";
   const findRecord = (data, type, id) => {
     const collection = collectionFor(type);
     return Array.isArray(data[collection]) ? data[collection].find((item) => item.id === id && item.status === "published") : null;
