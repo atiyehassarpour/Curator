@@ -4,7 +4,9 @@ const path = require("node:path");
 const pages = [
   { name: "homepage", route: "/" },
   { name: "research", route: "/research.html" },
-  { name: "journal", route: "/journal.html" }
+  { name: "journal", route: "/journal.html" },
+  { name: "curators", route: "/curators.html" },
+  { name: "curator-profile-template", route: "/curator-profile-template.html" }
 ];
 const languages = ["fa", "en"];
 const viewports = [
