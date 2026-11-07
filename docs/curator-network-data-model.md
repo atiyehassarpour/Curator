@@ -20,7 +20,7 @@ The root object uses `schemaVersion: 1` and contains:
 - `sources`
 - `relationships`
 
-Each entity record must have a stable unique `id` and a `status`. Only records with `status: "published"` are rendered. Draft, submitted, under-review, rejected, and placeholder records are not public.
+Each entity record must have a stable unique `id`, `status: "published"`, `reviewStatus: "approved"`, a `reviewedAt` date, and at least one `sourceIds` reference to a published source with a title and HTTPS URL. The frontend enforces all of these requirements before rendering. Draft, submitted, under-review, rejected, unreviewed, and placeholder records are not public.
 
 Bilingual content fields use objects such as `{ "fa": "...", "en": "..." }`. Common fields include `name` or `title`, `summary`, `description`, `city`, `country`, and `sourceIds`. Curator records may also include `biography`, `approach`, `practiceTypes`, `fields`, and `locationGroup`.
 
@@ -50,7 +50,7 @@ These are relationship patterns, not claims about real people or events. No samp
 
 ## Sources and publication integrity
 
-A source record should include a stable `id`, bilingual `title`, `url`, publisher or archive information, publication/access dates where available, and status. Published records must cite source IDs. Relationship claims must also carry supporting source IDs.
+A source record should include a stable `id`, bilingual `title`, `url`, publisher or archive information, publication/access dates where available, and status. Published records must cite source IDs. Relationship claims must also have `status: "published"` and at least one `sourceIds` reference to a published source with a title and HTTPS URL; the frontend hides unsupported or unreviewed edges.
 
 External links are rendered only when they use HTTPS. Editorial review and source verification are prerequisites for publication. Image credits, usage rights, consent, and the last-reviewed date should be stored with the relevant record before images or personal information are published.
 
