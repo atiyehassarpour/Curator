@@ -11,6 +11,7 @@
     api.visibleRelations(data, type, record.id).forEach((relation) => {
       const fromCurrent = relation.fromType === type && relation.fromId === record.id;
       const otherType = fromCurrent ? relation.toType : relation.fromType, otherId = fromCurrent ? relation.toId : relation.fromId;
+      if (otherType === "curator") return;
       const other = api.findRecord(data, otherType, otherId); if (!other) return;
       const card = document.createElement("article"); card.className = "network-card";
       const href = otherType === "curator" ? "curator-profile-template.html?id=" + encodeURIComponent(otherId) : api.makeEntityUrl(otherType, otherId);
