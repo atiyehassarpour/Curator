@@ -13,7 +13,7 @@
       const otherType = fromCurrent ? relation.toType : relation.fromType, otherId = fromCurrent ? relation.toId : relation.fromId;
       const other = api.findRecord(data, otherType, otherId); if (!other) return;
       const card = document.createElement("article"); card.className = "network-card";
-      const link = api.makeLink(api.makeEntityUrl(otherType, otherId), api.titleOf(other, lang));
+      const href = otherType === "curator" ? "curator-profile-template.html?id=" + encodeURIComponent(otherId) : api.makeEntityUrl(otherType, otherId);\n      const link = api.makeLink(href, api.titleOf(other, lang));
       const note = document.createElement("p"); note.textContent = api.localized(relation.role, lang) || api.relationLabels[relation.relationType]?.[lang] || "";
       card.append(link, note); connections.append(card);
     });
