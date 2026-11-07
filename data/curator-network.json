@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "contentPolicy": {
+    "publishedRecordsRequireSources": true,
+    "publishedRecordsRequireEditorialReview": true,
+    "placeholderRecordsAreNeverRendered": true
+  },
+  "curators": [],
+  "exhibitions": [],
+  "galleries": [],
+  "museums": [],
+  "artists": [],
+  "projects": [],
+  "publications": [],
+  "sources": [],
+  "relationships": []
+}

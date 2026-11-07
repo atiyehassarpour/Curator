@@ -1,16 +1,16 @@
-name: Homepage quality checks
+name: Project quality checks
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, "design/**", "feat/**"]
   push:
-    branches: [main, "design/**"]
+    branches: [main, "design/**", "feat/**"]
 
 permissions:
   contents: read
 
 jobs:
-  homepage-checks:
+  project-checks:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -19,7 +19,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install project dependencies
+        run: npm install
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
       - name: Check JavaScript syntax
-        run: node --check app.js && node --check tests/homepage.test.js
-      - name: Run homepage regression tests
-        run: node --test tests/homepage.test.js
+        run: node --check app.js && node --check scripts/serve.js && node --check playwright.config.js && node --check tests/homepage.test.js && node --check tests/sections.test.js && node --check tests/site.visual.spec.js
+      - name: Run project regression tests
+        run: npm test
+      - name: Run browser visual and responsive checks
+        run: npm run test:visual
+      - name: Upload browser screenshots and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-visual-qa
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
+          retention-days: 14
