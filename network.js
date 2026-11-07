@@ -51,6 +51,7 @@
   };
   const isVerifiedRecord = (data, record) => Boolean(
     record &&
+    (record.name || record.title) &&
     record.status === "published" &&
     record.reviewStatus === "approved" &&
     record.reviewedAt &&
