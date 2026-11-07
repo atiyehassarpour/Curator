@@ -6,7 +6,8 @@ const pages = [
   { name: "research", route: "/research.html" },
   { name: "journal", route: "/journal.html" },
   { name: "curators", route: "/curators.html" },
-  { name: "curator-profile-template", route: "/curator-profile-template.html" },\n  { name: "entity", route: "/entity.html?type=gallery&id=preview" }
+  { name: "curator-profile-template", route: "/curator-profile-template.html" },
+  { name: "entity", route: "/entity.html" }
 ];
 const languages = ["fa", "en"];
 const viewports = [
