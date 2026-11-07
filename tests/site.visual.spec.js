@@ -7,7 +7,7 @@ const pages = [
   { name: "journal", route: "/journal.html" },
   { name: "curators", route: "/curators.html" },
   { name: "curator-profile-template", route: "/curator-profile-template.html" },
-  { name: "entity", route: "/entity.html" }
+  { name: "entity", route: "/entity.html" },\n  { name: "contribute", route: "/contribute.html" }
 ];
 const languages = ["fa", "en"];
 const viewports = [
