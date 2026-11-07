@@ -27,7 +27,7 @@
         items.forEach(({record, relation}) => {
           const card = document.createElement("article"); card.className = "network-card";
           const link = api.makeLink(api.makeEntityUrl(type, record.id), api.titleOf(record, lang));
-          const note = document.createElement("p"); note.textContent = api.localized(relation.role, lang) || api.localized(record.summary, lang) || "";
+          const note = document.createElement("p"); note.textContent = api.localized(relation.role, lang) || api.relationLabels[relation.relationType]?.[lang] || api.localized(record.summary, lang) || "";
           card.append(link, note); list.append(card);
         }); section.append(list);
       }
