@@ -21,7 +21,7 @@
     return Array.isArray(data[collection]) ? data[collection].find((item) => item.id === id && item.status === "published") : null;
   };
   const visibleRelations = (data, type, id) => (data.relationships || []).filter((r) => {
-    if (r.status && r.status !== "published") return false;
+    if (r.status !== "published" || !hasVerifiedSources(data, r.sourceIds)) return false;
     const matches = (r.fromType === type && r.fromId === id) || (r.toType === type && r.toId === id);
     return matches && Boolean(findRecord(data, r.fromType, r.fromId) && findRecord(data, r.toType, r.toId));
   });
@@ -36,5 +36,5 @@
   const safeExternalLink = (url) => { try { const parsed = new URL(url); return parsed.protocol === "https:" ? parsed.href : null; } catch (_) { return null; } };
   const makeEntityUrl = (type, id) => "entity.html?type=" + encodeURIComponent(type) + "&id=" + encodeURIComponent(id);
   const makeLink = (href, label, className) => { const a = document.createElement("a"); a.href = href; a.textContent = label; if (className) a.className = className; return a; };
-  window.CASGNetwork = { collections, entityLabels, relationLabels, localized, collectionFor, findRecord, visibleRelations, titleOf, load, safeExternalLink, makeEntityUrl, makeLink };
+  window.CASGNetwork = { collections, entityLabels, relationLabels, localized, collectionFor, hasVerifiedSources, isVerifiedRecord, findRecord, visibleRelations, titleOf, load, safeExternalLink, makeEntityUrl, makeLink };
 })();
