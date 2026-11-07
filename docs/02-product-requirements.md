@@ -1,69 +1,81 @@
-# Product Requirements — Homepage Milestone
+# Product Requirements — Homepage, Research, and Journal
 
-**Status:** Initial implementation baseline; confirm against approved source PRD before production launch.
+**Status:** Approved implementation scope for the first public-facing sections; validate copy and content against the owner's source documents before launch.
 
-## 1. Goal
+## 1. Product goal
 
-Communicate the identity and purpose of the Contemporary Art Study Group and invite relevant audiences to engage, in Persian and English.
+Communicate the identity of the Contemporary Art Study Group and provide clear entry points into research-led and editorial content in Persian and English.
 
-## 2. In-scope homepage sections
+## 2. Implemented page scope
 
-1. **Global header:** bilingual wordmark, primary in-page navigation, language switch.
-2. **Hero:** concise positioning statement and editorial visual.
-3. **About:** explain the group's independent, research-led identity.
-4. **Areas of focus:** research and writing; documentation and archive; dialogue and exchange.
-5. **Editorial statement:** communicate the value of plural perspectives.
-6. **Participation/contact:** invite researchers, writers, and art practitioners to get in touch.
-7. **Footer:** project identity and copyright year.
+### Homepage
+1. Global header, bilingual wordmark, navigation, and language switch.
+2. Hero and project positioning.
+3. About and areas of focus.
+4. Editorial statement.
+5. Participation/contact invitation and footer.
+
+### Research
+1. Research-oriented hero and purpose statement.
+2. Featured dossier placement, clearly identified as a structural placeholder until editorial content is approved.
+3. Research pathways: historiography and memory; art and cultural geographies; documentation methods.
+4. Research principles and source/rights expectations.
+5. Link to participation/contact information.
+
+### Journal
+1. Editorial masthead and journal positioning.
+2. Featured essay placement, clearly identified as a layout preview and not a published article.
+3. Editorial formats: essays, conversations, and critical readings/reviews.
+4. Editorial standards covering sources, evidence vs interpretation, independent bilingual review, and image rights.
+5. Link to participation/contact information.
 
 ## 3. Language behavior
 
-- Persian is the initial language, with `lang=fa` and `dir=rtl`.
-- English is available from the language control, with `lang=en` and `dir=ltr`.
-- The language switch updates visible copy, page direction, document language, title, and description.
-- Text is stored as language-specific strings in the markup for this static milestone. A future content-management layer must support independent Persian and English editorial records.
+- Persian uses `lang=fa` and `dir=rtl`; English uses `lang=en` and `dir=ltr`.
+- Language switching updates page copy, direction, document language, page-specific title, and description.
+- The chosen language is retained between pages through local storage; explicit `?lang=fa` or `?lang=en` overrides the stored preference.
+- Persian and English editorial content are separate versions. Translation status and publication approval are independent.
 
 ## 4. Responsive behavior
 
-- Desktop: editorial two-column hero and multi-column focus cards.
-- Tablet: stacked hero with responsive focus grid.
-- Mobile: compact header with collapsible navigation, single-column content, touch-friendly controls.
-- No horizontal overflow at narrow viewport widths.
+- Desktop uses an editorial grid, asymmetric compositions, and generous whitespace.
+- Tablet and mobile layouts are intentionally re-composed, not merely scaled down.
+- Navigation collapses into a keyboard-operable menu on narrow screens.
+- Content rows, feature areas, and headings reflow without horizontal overflow.
 
 ## 5. Accessibility requirements
 
 - Semantic landmarks and heading hierarchy.
 - Skip link to main content.
-- Keyboard-operable language and menu controls.
-- State exposed through `aria-expanded` and `aria-pressed`.
-- Descriptive document metadata and reduced-motion accommodation.
-- Decorative shapes are CSS and must not be mistaken for actual artworks.
+- Keyboard-operable language and menu controls with state exposed through `aria-expanded` and `aria-pressed`.
+- Visible focus treatment, readable contrast, and reduced-motion accommodation.
+- Decorative CSS compositions are labeled as abstract visuals and must not be mistaken for real artworks.
+- Links that represent future editorial content are not presented as working article records.
 
-## 6. Out of scope
+## 6. Not implemented / out of scope
 
-- User registration, authentication, and user profiles.
-- Article or project submission forms.
-- Editorial review workflow or admin dashboard.
-- Curator, artist, gallery, museum, exhibition, or opportunity directories.
-- Search, filtering, tagging, and public APIs.
-- Database integration, file storage, analytics, payments, and deployment.
-- Any real publication or claim about a real artist, gallery, museum, or exhibition.
+- User registration, authentication, and profiles.
+- Article submission forms and editorial review dashboard.
+- Database, CMS, file storage, search backend, public APIs, analytics, payments, and deployment.
+- Verified people, gallery, museum, exhibition, opportunity, or event directories.
+- Actual published research or journal articles; all feature examples remain placeholders until approved content and sources exist.
 
 ## 7. Content and launch blockers
 
-- The contact email in the prototype is explicitly a placeholder and must be replaced or removed.
-- All editorial copy and terminology require owner/editorial review.
+- Contact email remains a placeholder and must be replaced or removed before public launch.
+- All Persian and English copy and terminology require owner/editorial review.
 - Final identity assets, imagery, rights, and credits must be supplied/approved before launch.
-- The original project PRD must be checked before treating this baseline as final.
+- The original approved project documents must be reconciled before production decisions.
 
 ## 8. Acceptance checklist
 
-- [ ] Persian desktop reviewed.
-- [ ] Persian mobile reviewed.
-- [ ] English desktop reviewed.
-- [ ] English mobile reviewed.
-- [ ] Language switch correctly changes direction and document metadata.
-- [ ] Mobile navigation opens, closes, and closes after anchor selection.
+- [ ] Persian desktop reviewed for homepage, Research, and Journal.
+- [ ] Persian mobile reviewed for homepage, Research, and Journal.
+- [ ] English desktop reviewed for homepage, Research, and Journal.
+- [ ] English mobile reviewed for homepage, Research, and Journal.
+- [ ] Language switch changes direction, page title, and page-specific metadata.
+- [ ] Language preference persists when navigating between pages.
+- [ ] Mobile navigation opens/closes by button, Escape, and outside click.
 - [ ] Keyboard focus and reduced-motion behavior checked.
-- [ ] Contact placeholder replaced or removed before public launch.
+- [ ] Placeholder editorial content and contact details reviewed before launch.
 - [ ] Content and visual identity approved by owner.

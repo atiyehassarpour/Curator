@@ -1,16 +1,16 @@
-name: Homepage quality checks
+name: Project quality checks
 
 on:
   pull_request:
-    branches: [main]
-  push:
     branches: [main, "design/**"]
+  push:
+    branches: [main, "design/**", "feat/**"]
 
 permissions:
   contents: read
 
 jobs:
-  homepage-checks:
+  project-checks:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -20,6 +20,6 @@ jobs:
         with:
           node-version: 22
       - name: Check JavaScript syntax
-        run: node --check app.js && node --check tests/homepage.test.js
-      - name: Run homepage regression tests
-        run: node --test tests/homepage.test.js
+        run: node --check app.js && node --check tests/homepage.test.js && node --check tests/sections.test.js
+      - name: Run project regression tests
+        run: node --test tests/*.test.js

@@ -75,3 +75,14 @@ The current milestone documentation explicitly excludes internal pages, director
 ## 6. Cost and scope
 
 No paid service, cloud resource, database, hosting, or deployment has been created or activated. The refinement uses the repository's existing static HTML/CSS/JavaScript approach.
+
+
+## 7. Approved scope extension — Research and Journal
+
+Following explicit product-owner approval, the next frontend milestone adds two internal editorial sections:
+- `research.html`: research purpose, dossier placement, study pathways, and research principles.
+- `journal.html`: journal masthead, featured essay placement, editorial formats, and publishing standards.
+
+Both pages share the homepage's bilingual navigation and visual system. Their featured titles and descriptive copy are clearly marked as structural placeholders; they do not represent published research, articles, or verified facts. No CMS, submission form, user account, database, or publishing workflow has been implemented.
+
+The detailed page rationale, responsive behavior, content model boundaries, and open decisions are recorded in `docs/07-research-journal-design.md`.
