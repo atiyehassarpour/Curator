@@ -30,6 +30,11 @@ for (const pageInfo of pages) {
         await expect(page.locator("html")).toHaveAttribute("lang", language);
         await expect(page.locator("html")).toHaveAttribute("dir", language === "fa" ? "rtl" : "ltr");
         await expect(page).toHaveTitle(/.+/);
+        if (pageInfo.name === "curators") {
+          await expect(page.locator(".directory-hero")).toHaveCSS("display", "grid");
+          await expect(page.locator(".filter-row")).toHaveCSS("display", "grid");
+        }
+
 
         const dimensions = await page.evaluate(() => ({
           viewport: document.documentElement.clientWidth,
