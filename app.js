@@ -25,7 +25,7 @@
     document.querySelectorAll("[data-fa][data-en]").forEach((element) => {
       element.innerHTML = isEnglish ? element.dataset.en : element.dataset.fa;
     });
-    document.querySelectorAll("[data-aria-fa][data-aria-en]").forEach((element) => {
+    document.querySelectorAll("[data-placeholder-fa][data-placeholder-en]").forEach((element) => {\n      element.setAttribute("placeholder", isEnglish ? element.dataset.placeholderEn : element.dataset.placeholderFa);\n    });\n    document.querySelectorAll("[data-aria-fa][data-aria-en]").forEach((element) => {
       element.setAttribute("aria-label", isEnglish ? element.dataset.ariaEn : element.dataset.ariaFa);
     });
     languageButton.setAttribute("aria-pressed", String(isEnglish));
@@ -40,7 +40,7 @@
       const localizedDescription = isEnglish ? description.dataset.en : description.dataset.fa;
       if (localizedDescription) description.content = localizedDescription;
     }
-    if (persist) {
+    document.dispatchEvent(new CustomEvent("casg:languagechange", { detail: { language } }));\n    if (persist) {
       try { window.localStorage.setItem(storageKey, language); } catch (_) {}
       const url = new URL(window.location.href);
       url.searchParams.set("lang", language);
