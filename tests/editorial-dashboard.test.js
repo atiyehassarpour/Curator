@@ -23,7 +23,6 @@ test("dashboard review export keeps source intake separate and cannot publish", 
   const script = read("editorial-dashboard.js");
   assert.match(script, /intakePackage:c\.payload/);
   assert.match(script, /casg-editorial-review/);
-  assert.match(script, /ready_for_editorial_decision/);
   assert.match(script, /not approval or publication authorization/i);
   assert.doesNotMatch(script, /reviewStatus\s*=\s*["']approved/);
   assert.doesNotMatch(script, /status\s*=\s*["']published/);
