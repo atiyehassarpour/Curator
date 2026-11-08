@@ -55,3 +55,15 @@ Recommended editorial checklist:
 ## Later backend decision
 
 If remote submissions, contributor accounts, editorial queues, or persistent drafts become necessary, first approve a separate architecture and privacy/security review. A CMS, database, authentication provider, deployment, or paid/free-tier cloud resource is not part of this implementation.
+
+## Local editorial dashboard
+
+Open `editorial-dashboard.html` directly in a browser on the editor's device. Choose one or more downloaded intake JSON files. The dashboard reads each file with the browser File API; it does not upload, persist, or modify the selected files.
+
+The dashboard provides:
+- structural checks aligned with intake schema version 1;
+- a local list of selected cases and their submitted profile/source details;
+- a human editorial checklist and optional notes held only in page memory;
+- an exportable `casg-editorial-review` JSON report containing the unchanged intake package and a separate review record.
+
+The internal outcome choices are limited to `in_review`, `revision_requested`, and `ready_for_editorial_decision`. The last option is not an approval. The dashboard has no publish action and cannot change the intake record to an approved or published state. Reloading or closing the page clears the in-memory review notes and checklist; export the review report if it needs to be retained. Final editorial approval and any public data integration remain a separate, accountable human process.
