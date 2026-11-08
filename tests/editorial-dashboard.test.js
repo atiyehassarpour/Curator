@@ -27,3 +27,9 @@ test("dashboard review export keeps source intake separate and cannot publish", 
   assert.doesNotMatch(script, /reviewStatus\s*=\s*["']approved/);
   assert.doesNotMatch(script, /status\s*=\s*["']published/);
 });
+
+test("dashboard script parses and exposes a non-approval final-decision state", () => {
+  const vm = require("node:vm");
+  assert.doesNotThrow(() => new vm.Script(read("editorial-dashboard.js")));
+  assert.match(read("editorial-dashboard.html"), /ready_for_editorial_decision/);
+});
