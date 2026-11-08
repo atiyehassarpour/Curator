@@ -30,7 +30,7 @@ Open `http://localhost:8000/?lang=fa`, `curators.html?lang=fa`, or `contribute.h
 
 ## Curator data workflow
 
-The directory reads `data/curator-network.json`. The form at `contribute.html` creates a downloadable draft package only. It does not upload, store, or publish submissions. Editors verify the package and integrate approved records manually. See `docs/curator-intake-workflow.md` and `docs/curator-network-data-model.md`.
+The directory reads `data/curator-network.json`. The form at `contribute.html` creates a downloadable draft package only. It does not upload, store, or publish submissions. Editors verify the package and integrate approved records manually. Run `npm run validate:intake -- <draft.json>` for structural checks before human review; validation never approves or publishes. See `docs/curator-intake-workflow.md` and `docs/curator-network-data-model.md`.
 
 ## Browser visual QA
 
