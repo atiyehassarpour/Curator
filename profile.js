@@ -68,7 +68,7 @@
     ];
     for (const [type,items] of groups) {
       const section=node("section","network-group"), heading=node("h2","",labels[type][language()]);
-      const list=node("div","network-card-list");section.append(heading);
+      const list=node("div","network-card-list");section.append(heading,list);
       const unique=new Map();
       items.forEach(item=>{
         const key=item.type+":"+item.record.id;
@@ -118,7 +118,7 @@
     }
     renderList("#profile-roles",curator.roles,lang==="fa"?"سوابق حرفه‌ای تأییدشده‌ای ثبت نشده است.":"No verified professional roles recorded.");
     renderList("#profile-education",curator.education,lang==="fa"?"سوابق تحصیلی تأییدشده‌ای ثبت نشده است.":"No verified education records.");
-    renderList("#profile-interests",(curator.researchInterests||curator.fields||[]).map(v=>typeof v==="string"?{label:{fa:v,en:v}}:{label:v}),lang==="fa"?"حوزه پژوهشی ثبت نشده است.":"No research interests recorded.");
+    renderList("#profile-interests",(curator.researchInterests||curator.fields||[]).map(v=>typeof v==="string"?{label:{fa:v,en:v}}:(v.label? v : {label:v})),lang==="fa"?"حوزه پژوهشی ثبت نشده است.":"No research interests recorded.");
     const links=root.querySelector("#profile-links");links.replaceChildren();
     const external=[["website",lang==="fa"?"وب‌سایت":"Website",curator.website],["instagram","Instagram",curator.instagram],["orcid","ORCID",curator.orcid]];
     external.forEach(([key,label,value])=>{const url=api.safeExternalLink(value);if(url){const a=api.makeLink(url,label);a.target="_blank";a.rel="noopener noreferrer";links.append(a);}});
