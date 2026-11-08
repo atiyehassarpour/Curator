@@ -89,7 +89,14 @@ test("curator profile navigates through verified exhibition, institution, and ar
   const fixture = {
     schemaVersion: 1,
     contentPolicy: { publishedRecordsRequireSources: true, publishedRecordsRequireEditorialReview: true, placeholderRecordsAreNeverRendered: true },
-    curators: [record("curator-test", "Test Curator", { biography: { fa: "شرح آزمایشی", en: "Test biography" }, approach: { fa: "رویکرد آزمایشی", en: "Test approach" }, practiceTypes: ["independent"], locationGroup: "iran" })],
+    curators: [record("curator-test", "Test Curator", {
+      biography: { fa: "شرح آزمایشی", en: "Test biography" },
+      approach: { fa: "رویکرد آزمایشی", en: "Test approach" },
+      practiceTypes: ["independent"], locationGroup: "iran",
+      roles: [{ title: { fa: "کیوریتور مستقل", en: "Independent curator" }, institution: { fa: "مؤسسه آزمایشی", en: "Test institution" } }],
+      education: [{ degree: { fa: "کارشناسی ارشد", en: "MA" }, institution: { fa: "دانشگاه آزمایشی", en: "Test University" } }],
+      researchInterests: [{ label: { fa: "هنر معاصر", en: "Contemporary art" } }]
+    })],
     exhibitions: [record("exhibition-test", "Test Exhibition", { summary: { fa: "نمایشگاه آزمایشی", en: "Test exhibition" } })],
     galleries: [record("gallery-test", "Test Gallery")],
     museums: [record("museum-test", "Test Museum")],
@@ -111,6 +118,11 @@ test("curator profile navigates through verified exhibition, institution, and ar
   }));
   await page.goto("/curator-profile-template.html?id=curator-test&lang=en", { waitUntil: "networkidle" });
   await expect(page.locator("[data-profile-name]")).toHaveText("Test Curator");
+  await expect(page.getByText("Independent curator")).toBeVisible();
+  await expect(page.getByText("MA")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Test Gallery" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Test Museum" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Test Artist" })).toBeVisible();
   await page.getByRole("link", { name: "Test Exhibition" }).click();
   await expect(page).toHaveURL(/entity\.html\?type=exhibition&id=exhibition-test/);
   await expect(page.locator("[data-entity-name]")).toHaveText("Test Exhibition");
