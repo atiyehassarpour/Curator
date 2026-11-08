@@ -100,5 +100,5 @@ test("curator profile renders optional credentials and curator-centered verified
   assert.match(script, /api\.visibleRelations\(data,"exhibition",exhibitionId\)/);
   assert.match(script, /safeExternalLink\(curator\.portrait\?\.url\)/);
   assert.match(script, /researchInterests/);
-  assert.match(script, /api\.isVerifiedRecord/);
+  assert.match(script, /verifiedRecord = \(type,id\) => api\.findRecord/);
 });
