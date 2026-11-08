@@ -6,7 +6,7 @@ const path = require("node:path");
 const root = path.join(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 
-for (const page of ["research.html", "journal.html", "curators.html", "curator-profile-template.html", "entity.html"]) {
+for (const page of ["research.html", "journal.html", "curators.html", "curator-profile-template.html", "entity.html", "contribute.html"]) {
   const html = read(page);
   test(page + " has bilingual metadata and shared navigation", () => {
     assert.match(html, /<html lang="fa" dir="rtl">/);
@@ -73,4 +73,19 @@ test("directory and network styles include responsive breakpoints", () => {
   assert.match(css, /max-width:\s*850px/);
   assert.match(css, /max-width:\s*520px/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+});
+
+test("curator intake is local-only and exports draft records with sources", () => {
+  const html = read("contribute.html");
+  const script = read("contribute.js");
+  assert.match(html, /id="curator-intake"/);
+  assert.match(html, /name="sourceUrl"/);
+  assert.match(html, /name="declaration"/);
+  assert.match(script, /status:"draft"/);
+  assert.match(script, /reviewStatus:"pending"/);
+  assert.match(script, /reviewedAt:null/);
+  assert.match(script, /protocol==="https:"/);
+  assert.match(script, /URL\.createObjectURL/);
+  assert.doesNotMatch(script, /fetch\s*\(/);
+  assert.doesNotMatch(script, /XMLHttpRequest/);
 });

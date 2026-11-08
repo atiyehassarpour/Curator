@@ -5,7 +5,8 @@
   "description": "Bilingual Contemporary Art Study Group website",
   "scripts": {
     "test": "node --test tests/*.test.js",
-    "test:visual": "playwright test"
+    "test:visual": "playwright test",
+    "validate:intake": "node scripts/validate-intake.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1"
