@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ابزار محلی بررسی پرونده‌های معرفی کیوریتورها">
+<title>پنل بررسی تحریریه | CASG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="editorial-dashboard.css">
+<script src="editorial-dashboard.js" defer></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="index.html">CASG <span>·</span> <small data-fa="ابزار داخلی تحریریه" data-en="EDITORIAL TOOL">ابزار داخلی تحریریه</small></a><button id="language-toggle" type="button">EN / فا</button></header>
+<main>
+<section class="intro">
+<p class="eyebrow" data-fa="ابزار محلی · بدون سرور · بدون ذخیره‌سازی" data-en="LOCAL TOOL · NO SERVER · NO PERSISTENCE">ابزار محلی · بدون سرور · بدون ذخیره‌سازی</p>
+<h1 data-fa="میز بررسی<br>پرونده‌های کیوریتورها" data-en="Curator editorial<br>review desk">میز بررسی<br>پرونده‌های کیوریتورها</h1>
+<p data-fa="فایل‌های JSON دریافت‌شده از فرم معرفی را از دستگاه خود انتخاب کنید. محتوا فقط در همین مرورگر خوانده می‌شود و به هیچ سروری ارسال نخواهد شد." data-en="Select curator-intake JSON files from your device. Files are read locally in this browser and are never uploaded to a server.">فایل‌های JSON دریافت‌شده از فرم معرفی را از دستگاه خود انتخاب کنید. محتوا فقط در همین مرورگر خوانده می‌شود و به هیچ سروری ارسال نخواهد شد.</p>
+</section>
+<section class="privacy"><strong data-fa="محدودیت مهم" data-en="IMPORTANT LIMIT">محدودیت مهم</strong><span data-fa="این پنل ابزار کمکی بررسی است؛ هویت افراد را راستی‌آزمایی نمی‌کند، پرونده را تأیید یا منتشر نمی‌کند و هیچ داده‌ای را به فایل اصلی یا سایت منتقل نمی‌کند." data-en="This is a review aid. It does not verify identity, approve or publish records, or write changes to the source file or website.">این پنل ابزار کمکی بررسی است؛ هویت افراد را راستی‌آزمایی نمی‌کند، پرونده را تأیید یا منتشر نمی‌کند و هیچ داده‌ای را به فایل اصلی یا سایت منتقل نمی‌کند.</span></section>
+<section class="load-panel">
+<label class="file-picker"><span data-fa="انتخاب یک یا چند فایل JSON" data-en="Choose one or more JSON files">انتخاب یک یا چند فایل JSON</span><input id="file-input" type="file" accept=".json,application/json" multiple></label>
+<p id="load-status" role="status" aria-live="polite" data-fa="هنوز پرونده‌ای انتخاب نشده است." data-en="No files selected yet.">هنوز پرونده‌ای انتخاب نشده است.</p>
+</section>
+<div class="workspace" id="workspace" hidden>
+<aside class="case-list"><div class="section-heading"><h2 data-fa="پرونده‌ها" data-en="CASE FILES">پرونده‌ها</h2><span id="case-count">0</span></div><div id="case-items"></div></aside>
+<section class="case-detail" aria-live="polite"><div id="empty-state" class="empty-state" data-fa="برای مشاهده جزئیات، یک پرونده را انتخاب کنید." data-en="Select a case to inspect its details.">برای مشاهده جزئیات، یک پرونده را انتخاب کنید.</div>
+<div id="detail-content" hidden>
+<div class="detail-heading"><div><p class="eyebrow" data-fa="پرونده ورودی" data-en="INTAKE RECORD">پرونده ورودی</p><h2 id="person-name"></h2><p id="case-meta" class="muted"></p></div><span id="validation-badge" class="badge"></span></div>
+<div class="detail-grid"><section class="detail-card"><h3 data-fa="اطلاعات معرفی" data-en="PROFILE INFORMATION">اطلاعات معرفی</h3><dl id="profile-fields"></dl></section><section class="detail-card"><h3 data-fa="منابع ارائه‌شده" data-en="SUBMITTED SOURCES">منابع ارائه‌شده</h3><div id="source-list"></div></section></div>
+<section class="review-card"><div class="section-heading"><h3 data-fa="چک‌لیست بررسی انسانی" data-en="HUMAN REVIEW CHECKLIST">چک‌لیست بررسی انسانی</h3><span data-fa="ثبت موقت در همین نشست" data-en="SESSION ONLY">ثبت موقت در همین نشست</span></div>
+<div class="checklist" id="checklist">
+<label><input type="checkbox" data-check="identity"><span data-fa="هویت و املای نام با منابع مستقل تطبیق داده شد." data-en="Identity and name spelling checked against independent sources.">هویت و املای نام با منابع مستقل تطبیق داده شد.</span></label>
+<label><input type="checkbox" data-check="claims"><span data-fa="ادعاهای زندگی‌نامه‌ای و تاریخ‌ها بررسی شدند." data-en="Biographical claims and dates were verified.">ادعاهای زندگی‌نامه‌ای و تاریخ‌ها بررسی شدند.</span></label>
+<label><input type="checkbox" data-check="sources"><span data-fa="اعتبار، دسترس‌پذیری و ارتباط منابع بررسی شد." data-en="Source credibility, accessibility, and relevance checked.">اعتبار، دسترس‌پذیری و ارتباط منابع بررسی شد.</span></label>
+<label><input type="checkbox" data-check="rights"><span data-fa="حقوق انتشار، حریم خصوصی و تناسب اطلاعات بررسی شد." data-en="Publication rights, privacy, and data minimization checked.">حقوق انتشار، حریم خصوصی و تناسب اطلاعات بررسی شد.</span></label>
+<label><input type="checkbox" data-check="language"><span data-fa="کیفیت متن فارسی و انگلیسی و ترانویسی بررسی شد." data-en="Persian/English copy and transliteration reviewed.">کیفیت متن فارسی و انگلیسی و ترانویسی بررسی شد.</span></label>
+</div>
+<label class="notes-label"><span data-fa="یادداشت تحریریه (اختیاری)" data-en="EDITORIAL NOTES (OPTIONAL)">یادداشت تحریریه (اختیاری)</span><textarea id="editor-notes" rows="4" maxlength="5000" placeholder="..."></textarea></label>
+<label class="decision-label"><span data-fa="وضعیت بررسی داخلی" data-en="INTERNAL REVIEW OUTCOME">وضعیت بررسی داخلی</span><select id="review-outcome"><option value="in_review" data-fa="در حال بررسی" data-en="In review">در حال بررسی</option><option value="revision_requested" data-fa="نیازمند اصلاح / تکمیل" data-en="Revision requested">نیازمند اصلاح / تکمیل</option><option value="ready_for_editorial_decision" data-fa="آماده تصمیم نهایی سردبیر" data-en="Ready for editor decision">آماده تصمیم نهایی سردبیر</option></select></label>
+<p class="decision-warning" data-fa="«آماده تصمیم نهایی» به‌معنای تأیید یا مجوز انتشار نیست. تصمیم نهایی باید خارج از این ابزار و با مسئولیت سردبیر ثبت شود." data-en="“Ready for editor decision” is not approval or publication authorization. A final decision must be made and recorded separately by an editor.">«آماده تصمیم نهایی» به‌معنای تأیید یا مجوز انتشار نیست. تصمیم نهایی باید خارج از این ابزار و با مسئولیت سردبیر ثبت شود.</p>
+<button id="export-review" class="primary-button" type="button" data-fa="دریافت گزارش بررسی این پرونده (JSON)" data-en="Export review report (JSON)">دریافت گزارش بررسی این پرونده (JSON)</button>
+<p id="export-status" class="status" role="status" aria-live="polite"></p>
+</section></div></section></div>
+</main>
+<footer><span>CASG · EDITORIAL WORKFLOW</span><a href="curators.html" data-fa="بازگشت به سایت عمومی" data-en="Back to public site">بازگشت به سایت عمومی</a></footer>
+</body></html>
