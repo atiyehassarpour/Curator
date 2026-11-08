@@ -32,6 +32,26 @@ Relationships also require published status, supporting published sources, and v
 - The form does not upload, store, or transmit entries. Downloaded files remain under the contributor's control.
 - No real curator, exhibition, gallery, museum, artist, publication, or source data is seeded by this implementation.
 
+## Offline editorial validation
+
+Before an editor manually transfers a downloaded JSON file into the network data source, run the local structural validator from the repository root:
+
+```powershell
+npm run validate:intake -- .\\path\\to\\casg-curator-draft.json
+```
+
+The validator checks the intake format/version, bilingual curator name, required contributor declaration, draft-only statuses, null review date, HTTPS source URLs, source references, and optional public contact fields. It does not edit the file, import records, approve a person, or publish anything. A successful result means only that the package is structurally ready for human editorial review.
+
+Recommended editorial checklist:
+- Confirm the curator's identity using independent institutional, exhibition-catalogue, gallery, museum, or reputable publication sources.
+- Check spelling and transliteration in both languages; do not infer a preferred English spelling.
+- Verify every factual claim and its date against the cited source.
+- Assess whether biography, public contact details, photographs, and third-party materials are necessary and appropriate to publish.
+- Add exhibitions, institutions, artists, projects, and publications only when the relationship itself is supported by a source.
+- Record reviewer identity internally, review date, and any correction history in the editorial process; never fabricate approval metadata.
+- Keep uncertain claims out of the public record and request clarification where needed.
+- Only after approval, integrate the record and its sources into the network JSON in a reviewed change, with all required publication fields completed.
+
 ## Later backend decision
 
 If remote submissions, contributor accounts, editorial queues, or persistent drafts become necessary, first approve a separate architecture and privacy/security review. A CMS, database, authentication provider, deployment, or paid/free-tier cloud resource is not part of this implementation.
