@@ -34,7 +34,7 @@ test("curator directory loads shared network data and exposes search and filters
   const script = read("curators.js");
   assert.match(script, /api\.load\(\)/);
   assert.match(script, /data-curator-profile/);
-  assert.match(script, /status === "published"/);
+  assert.match(script, /api\.isVerifiedRecord\(data, r\)/);
 });
 
 test("network data schema keeps all entity collections and relationships explicit", () => {
@@ -88,4 +88,17 @@ test("curator intake is local-only and exports draft records with sources", () =
   assert.match(script, /URL\.createObjectURL/);
   assert.doesNotMatch(script, /fetch\s*\(/);
   assert.doesNotMatch(script, /XMLHttpRequest/);
+});
+
+test("curator profile renders optional credentials and curator-centered verified network links", () => {
+  const html = read("curator-profile-template.html");
+  const script = read("profile.js");
+  for (const id of ["profile-portrait","profile-roles","profile-education","profile-interests","profile-links","profile-relationships","profile-sources"]) {
+    assert.match(html, new RegExp('id="' + id + '"'));
+  }
+  assert.match(script, /collectIndirectExhibitionEdges/);
+  assert.match(script, /api\.visibleRelations\(data,"exhibition",exhibitionId\)/);
+  assert.match(script, /safeExternalLink\(curator\.portrait\?\.url\)/);
+  assert.match(script, /researchInterests/);
+  assert.match(script, /verifiedRecord = \(type,id\) => api\.findRecord/);
 });

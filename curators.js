@@ -27,7 +27,7 @@
   };
   const render = async () => {
     try {
-      const data = await api.load(); profiles = data.curators.filter((r) => r.status === "published" && r.id && r.name);
+      const data = await api.load(); profiles = data.curators.filter((r) => r.id && api.isVerifiedRecord(data, r));
       grid.replaceChildren();
       if (!profiles.length) {
         const empty = document.createElement("article"); empty.className = "curator-empty";

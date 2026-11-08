@@ -66,3 +66,23 @@ External links are rendered only when they use HTTPS. Editorial review and sourc
 ## Future migration
 
 If the content volume later requires a CMS or database, retain the same entity IDs, collection semantics, relationship edges, source references, bilingual fields, and publication states. A backend migration is a separate product decision and must not be initiated without explicit approval.
+
+## Extended curator profile fields
+
+The curator profile template can render the following optional, bilingual fields when present and verified:
+
+- `portrait`: object with `url` (HTTPS), bilingual `alt`, and bilingual `credit`. The image is omitted when the URL is not HTTPS. Image rights and permission must be confirmed editorially before publication.
+- `roles`: array of objects with bilingual `title`, `organization` or `institution`, `description` or `role`, and optional `startDate` / `endDate`.
+- `education`: array of objects with bilingual `degree`, `institution`, `description`, and optional dates.
+- `researchInterests`: array of bilingual labels (or use the existing `fields` array).
+- `website`, `instagram`, `orcid`: optional HTTPS public links. Only safe HTTPS URLs are rendered.
+
+All fields are optional. An empty section displays a clear empty state; it must never be populated with invented or inferred credentials.
+
+## Curator-centered relationship traversal
+
+The curator profile displays direct, verified links to exhibitions, projects, publications, artists, galleries, and museums. It also follows one documented relationship step from each curator-linked exhibition to its host gallery/museum and participating artists. These indirect connections are labeled with the exhibition through which they are documented.
+
+Every edge must itself be published, source-backed, and connect verified published records. The traversal is intentionally limited to one hop beyond curator-linked exhibitions to avoid presenting unrelated network connections as the curator's own work. Duplicate entities are shown once. Non-curator entity pages retain their reciprocal links back to the curator profile.
+
+The profile remains a static frontend backed by `data/curator-network.json`; no CMS, database, account system, or external service is introduced.
