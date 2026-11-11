@@ -8,7 +8,7 @@ The repository contains:
 - A bilingual responsive homepage.
 - Bilingual Research and Journal landing pages.
 - A curator-first directory, reusable profile and entity pages, and a sourced relationship model.
-- A static curator-intake preparation form that exports draft JSON locally in the browser; it does not submit or publish data.
+- A static curator-intake preparation form that exports draft JSON locally in the browser; it does not submit or publish data.\n- A bilingual online-dialogue request form on the homepage. It prepares a local text file only; requests are not transmitted or stored until a verified contact/backend workflow is configured.
 
 ## Core principles
 
