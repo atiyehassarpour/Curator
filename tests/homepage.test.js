@@ -40,3 +40,14 @@ test("responsive and reduced-motion styles are present", () => {
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
   assert.match(css, /:focus-visible/);
 });
+
+test("online dialogue request is bilingual, accessible, and clearly local-only", () => {
+  assert.match(html, /id="online-dialogue-form"/);
+  assert.match(html, /type="datetime-local"/);
+  assert.match(html, /role="status" aria-live="polite"/);
+  assert.match(html, /هیچ.*به سایت ارسال نمی‌شود/);
+  assert.match(html, /data-en="Download meeting request"/);
+  assert.match(js, /new Blob\(/);
+  assert.match(js, /casg-online-dialogue-request\.txt/);
+  assert.match(js, /URL\.createObjectURL/);
+});
