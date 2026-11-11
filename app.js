@@ -48,6 +48,45 @@
     document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
     document.addEventListener("click", (event) => { if (!nav.contains(event.target) && !menuButton.contains(event.target)) closeMenu(); });
   }
+
+  const dialogueForm = document.querySelector("#online-dialogue-form");
+  if (dialogueForm) {
+    const status = document.querySelector("#dialogue-status");
+    const fieldLabels = {
+      fullName: ["نام و نام خانوادگی", "Full name"],
+      email: ["ایمیل", "Email"],
+      topic: ["موضوع گفت‌وگو", "Conversation topic"],
+      timeOne: ["زمان پیشنهادی اول", "First suggested time"],
+      timeTwo: ["زمان پیشنهادی دوم", "Second suggested time"],
+      details: ["توضیحات تکمیلی", "Additional context"]
+    };
+    dialogueForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!dialogueForm.reportValidity()) return;
+      const english = root.lang === "en";
+      const lines = [
+        english ? "CONTEMPORARY ART STUDY GROUP — ONLINE DIALOGUE REQUEST" : "گروه مطالعاتی هنر معاصر — درخواست جلسه گفت‌وگوی آنلاین",
+        "",
+        ...Object.entries(fieldLabels).filter(([name]) => name !== "timeTwo" || dialogueForm.elements[name].value).map(([name, labels]) =>
+          (english ? labels[1] : labels[0]) + ": " + dialogueForm.elements[name].value.trim()
+        ),
+        "",
+        english ? "Please contact me to coordinate and confirm the meeting time." : "لطفاً برای هماهنگی و تأیید زمان جلسه با من تماس بگیرید."
+      ];
+      const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "casg-online-dialogue-request.txt";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      if (status) status.textContent = english
+        ? "Your request file has been prepared. Please send it to the group using a verified contact address."
+        : "فایل درخواست شما آماده شد. لطفاً آن را از طریق نشانی تماس تأییدشده برای گروه ارسال کنید.";
+    });
+  }
   if (year) year.textContent = new Date().getFullYear();
   setLanguage(readPreferredLanguage(), false);
 })();
