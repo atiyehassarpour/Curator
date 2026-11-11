@@ -24,7 +24,7 @@ jobs:
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium
       - name: Check JavaScript syntax
-        run: node --check app.js && node --check scripts/serve.js && node --check playwright.config.js && node --check tests/homepage.test.js && node --check tests/sections.test.js && node --check tests/site.visual.spec.js
+        run: node --check app.js && node --check worker/online-dialogue.mjs && node --check scripts/serve.js && node --check playwright.config.js && node --check tests/homepage.test.js && node --check tests/online-dialogue-worker.test.js && node --check tests/sections.test.js && node --check tests/site.visual.spec.js
       - name: Run project regression tests
         run: npm test
       - name: Run browser visual and responsive checks
