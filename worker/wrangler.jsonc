@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.cloudflare.com/wrangler/config-schema.json",
+  "name": "casg-online-dialogue-api",
+  "main": "online-dialogue.mjs",
+  "compatibility_date": "2026-11-11",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGIN": "https://atiyehassarpour.github.io"
+  },
+  "ratelimits": [
+    {
+      "name": "DIALOGUE_RATE_LIMITER",
+      "namespace_id": "842116",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ]
+}

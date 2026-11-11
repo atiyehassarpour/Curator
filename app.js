@@ -52,6 +52,9 @@
   const dialogueForm = document.querySelector("#online-dialogue-form");
   if (dialogueForm) {
     const status = document.querySelector("#dialogue-status");
+    const apiMeta = document.querySelector('meta[name="casg-dialogue-api"]');
+    const apiUrl = apiMeta ? apiMeta.content.trim() : "";
+    const submitButton = dialogueForm.querySelector('button[type="submit"]');
     const fieldLabels = {
       fullName: ["نام و نام خانوادگی", "Full name"],
       email: ["ایمیل", "Email"],
@@ -60,20 +63,18 @@
       timeTwo: ["زمان پیشنهادی دوم", "Second suggested time"],
       details: ["توضیحات تکمیلی", "Additional context"]
     };
-    dialogueForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!dialogueForm.reportValidity()) return;
-      const english = root.lang === "en";
-      const lines = [
-        english ? "CONTEMPORARY ART STUDY GROUP — ONLINE DIALOGUE REQUEST" : "گروه مطالعاتی هنر معاصر — درخواست جلسه گفت‌وگوی آنلاین",
-        "",
-        ...Object.entries(fieldLabels).filter(([name]) => name !== "timeTwo" || dialogueForm.elements[name].value).map(([name, labels]) =>
-          (english ? labels[1] : labels[0]) + ": " + dialogueForm.elements[name].value.trim()
-        ),
-        "",
-        english ? "Please contact me to coordinate and confirm the meeting time." : "لطفاً برای هماهنگی و تأیید زمان جلسه با من تماس بگیرید."
-      ];
-      const blob = new Blob(["\uFEFF" + lines.join("\n")], { type: "text/plain;charset=utf-8" });
+
+    const getRequestLines = (english) => [
+      english ? "CONTEMPORARY ART STUDY GROUP — ONLINE DIALOGUE REQUEST" : "گروه مطالعاتی هنر معاصر — درخواست جلسه گفت‌وگوی آنلاین",
+      "",
+      ...Object.entries(fieldLabels).filter(([name]) => name !== "timeTwo" || dialogueForm.elements[name].value)
+        .map(([name, labels]) => (english ? labels[1] : labels[0]) + ": " + dialogueForm.elements[name].value.trim()),
+      "",
+      english ? "Please contact me to coordinate and confirm the meeting time." : "لطفاً برای هماهنگی و تأیید زمان جلسه با من تماس بگیرید."
+    ];
+
+    const downloadLocalRequest = (english) => {
+      const blob = new Blob(["\uFEFF" + getRequestLines(english).join("\n")], { type: "text/plain;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -82,9 +83,62 @@
       link.click();
       link.remove();
       URL.revokeObjectURL(url);
-      if (status) status.textContent = english
-        ? "Your request file has been prepared. Please send it to the group using a verified contact address."
-        : "فایل درخواست شما آماده شد. لطفاً آن را از طریق نشانی تماس تأییدشده برای گروه ارسال کنید.";
+    };
+
+    dialogueForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!dialogueForm.reportValidity()) return;
+      const english = root.lang === "en";
+
+      if (!apiUrl) {
+        downloadLocalRequest(english);
+        if (status) status.textContent = english
+          ? "Your request file has been prepared on this device. It has not been sent to the group yet."
+          : "فایل درخواست روی دستگاه شما آماده شد؛ این درخواست هنوز برای گروه ارسال نشده است.";
+        return;
+      }
+
+      if (submitButton) submitButton.disabled = true;
+      if (status) status.textContent = english ? "Sending your request securely…" : "در حال ارسال امن درخواست شما…";
+
+      const payload = {
+        fullName: dialogueForm.elements.fullName.value.trim(),
+        email: dialogueForm.elements.email.value.trim(),
+        topic: dialogueForm.elements.topic.value.trim(),
+        timeOne: dialogueForm.elements.timeOne.value,
+        timeTwo: dialogueForm.elements.timeTwo.value,
+        details: dialogueForm.elements.details.value.trim(),
+        language: english ? "en" : "fa",
+        website: dialogueForm.elements.website.value
+      };
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) {
+          const messages = {
+            429: english ? "Too many attempts. Please wait a minute and try again." : "تعداد درخواست‌ها زیاد است؛ یک دقیقه صبر کنید و دوباره تلاش کنید.",
+            503: english ? "The notification service is not configured yet. Please try again later." : "سرویس دریافت اعلان هنوز پیکربندی نشده است؛ لطفاً بعداً تلاش کنید."
+          };
+          throw new Error(messages[response.status] || (english
+            ? "Your request could not be sent. Please try again later."
+            : "ارسال درخواست انجام نشد؛ لطفاً کمی بعد دوباره تلاش کنید."));
+        }
+        if (status) status.textContent = english
+          ? "Your request has been sent to the group. The team will contact you to confirm a suitable time."
+          : "درخواست شما برای گروه ارسال شد. همکاران برای هماهنگی و تأیید زمان با شما تماس خواهند گرفت.";
+        dialogueForm.reset();
+      } catch (error) {
+        if (status) status.textContent = error.message || (english
+          ? "A connection error occurred. Please try again."
+          : "در ارتباط خطایی رخ داد؛ لطفاً دوباره تلاش کنید.");
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
     });
   }
   if (year) year.textContent = new Date().getFullYear();

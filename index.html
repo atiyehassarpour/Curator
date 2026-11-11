@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f2eb">
   <meta name="description" data-fa="گروه مطالعاتی هنر معاصر؛ بستری مستقل برای پژوهش، مستندسازی و گفت‌وگوی حرفه‌ای درباره هنر معاصر با تمرکز بر ایران در زمینه‌ای بین‌المللی." data-en="An independent platform for research, documentation, and dialogue around contemporary art, with a focus on Iranian perspectives in an international context." content="گروه مطالعاتی هنر معاصر؛ بستری مستقل برای پژوهش، مستندسازی و گفت‌وگوی حرفه‌ای درباره هنر معاصر با تمرکز بر ایران در زمینه‌ای بین‌المللی.">
+  <meta name="casg-dialogue-api" content="">
   <title>گروه مطالعاتی هنر معاصر | Contemporary Art Study Group</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,9 +111,11 @@
               <label><span data-fa="زمان پیشنهادی دوم (اختیاری)" data-en="Second suggested time (optional)">زمان پیشنهادی دوم (اختیاری)</span><input name="timeTwo" type="datetime-local"></label>
               <label class="dialogue-wide"><span data-fa="توضیحات تکمیلی (اختیاری)" data-en="Additional context (optional)">توضیحات تکمیلی (اختیاری)</span><textarea name="details" rows="3" maxlength="1500" data-placeholder-fa="کمی درباره موضوع و هدف جلسه بنویسید..." data-placeholder-en="Tell us briefly about the topic and purpose..." placeholder="کمی درباره موضوع و هدف جلسه بنویسید..."></textarea></label>
             </div>
-            <button class="outline-link dialogue-submit" type="submit"><span data-fa="دریافت فایل درخواست جلسه" data-en="Download meeting request">دریافت فایل درخواست جلسه</span><span aria-hidden="true">↓</span></button>
+            <label class="dialogue-honeypot" aria-hidden="true" tabindex="-1"><span>Leave this field empty</span><input name="website" tabindex="-1" autocomplete="off"></label>
+            <button class="outline-link dialogue-submit" type="submit"><span data-fa="ارسال درخواست جلسه" data-en="Send meeting request">ارسال درخواست جلسه</span><span aria-hidden="true">↗</span></button>
             <p class="dialogue-status" id="dialogue-status" role="status" aria-live="polite"></p>
-            <small class="dialogue-privacy" data-fa="این فرم در حال حاضر اطلاعات را فقط در مرورگر شما آماده و به‌صورت فایل متنی دانلود می‌کند؛ چیزی به سایت ارسال نمی‌شود. پس از دریافت نشانی تماس تأییدشده، درخواست را برای تیم گروه ارسال کنید. جلسه آنلاین پس از هماهنگی و تأیید زمان برگزار خواهد شد." data-en="For now, this form prepares and downloads a text file in your browser only; nothing is sent to the website. Once a verified contact address is provided, send the request to the group team. The online meeting will take place after the time is coordinated and confirmed.">این فرم در حال حاضر اطلاعات را فقط در مرورگر شما آماده و به‌صورت فایل متنی دانلود می‌کند؛ چیزی به سایت ارسال نمی‌شود. پس از دریافت نشانی تماس تأییدشده، درخواست را برای تیم گروه ارسال کنید. جلسه آنلاین پس از هماهنگی و تأیید زمان برگزار خواهد شد.</small>
+            <small class="dialogue-privacy" data-fa="تا زمان راه‌اندازی و اتصال سرویس امن دریافت درخواست، اطلاعات فقط در مرورگر شما آماده و به‌صورت فایل متنی دانلود می‌شود و چیزی به سایت ارسال نخواهد شد. پس از فعال‌سازی، درخواست برای بررسی به تیم گروه ارسال می‌شود؛ زمان جلسه پس از هماهنگی و تأیید نهایی خواهد شد." data-en="Until the secure request service is deployed and connected, the information is prepared in your browser and downloaded as a text file; nothing is sent to the website. Once activated, requests will be sent to the group team for review. Meeting times are confirmed separately.">تا زمان راه‌اندازی و اتصال سرویس امن دریافت درخواست، اطلاعات فقط در مرورگر شما آماده و به‌صورت فایل متنی دانلود می‌شود و چیزی به سایت ارسال نخواهد شد. پس از فعال‌سازی، درخواست برای بررسی به تیم گروه ارسال می‌شود؛ زمان جلسه پس از هماهنگی و تأیید نهایی خواهد شد.</small>
+          </form>
         </div>
       </div>
     </section>
