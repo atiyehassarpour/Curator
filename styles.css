@@ -81,3 +81,18 @@ body[lang="en"] .statement-section blockquote{font-family:var(--display);font-we
 @media(prefers-reduced-motion:reduce){
   .primary-nav a::after,.focus-visual,.outline-link{transition:none}
 }
+
+
+/* Online dialogue request */
+.dialogue-form{margin-top:28px;max-width:620px}
+.dialogue-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dialogue-form label{display:flex;flex-direction:column;gap:7px;color:var(--muted);font-size:11px}
+.dialogue-form label.dialogue-wide{grid-column:1/-1}
+.dialogue-form input,.dialogue-form textarea{width:100%;border:1px solid var(--line);border-radius:0;background:rgba(255,255,255,.24);padding:11px 12px;color:var(--ink);font:12px var(--persian);min-height:44px}
+body[lang="en"] .dialogue-form input,body[lang="en"] .dialogue-form textarea{font-family:var(--sans)}
+.dialogue-form textarea{resize:vertical;line-height:1.8}
+.dialogue-form input:focus-visible,.dialogue-form textarea:focus-visible,.dialogue-submit:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.dialogue-submit{margin-top:22px;background:transparent;cursor:pointer}
+.dialogue-status{min-height:1.6em;margin:12px 0 0;color:var(--olive);font-size:11px}
+.participate-content .dialogue-privacy{display:block;max-width:620px;margin-top:12px;color:var(--muted);font-size:10px;line-height:2}
+@media(max-width:520px){.dialogue-form-grid{grid-template-columns:1fr}.dialogue-form label.dialogue-wide{grid-column:auto}.dialogue-submit{width:100%}}
