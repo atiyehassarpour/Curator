@@ -19,14 +19,14 @@ Cloudflare Workers currently lists 100,000 requests/day on its Free plan. Resend
 
 1. Create/sign in to a Cloudflare account and create/sign in to a Resend account. No service is activated by this repository change.
 2. Verify a sender domain in Resend and create an API key. A verified sender is required for production delivery.
-3. From the repository root, authenticate Wrangler and deploy this Worker:
+3. From the repository root, authenticate Wrangler and deploy the Worker shell:
 
    ```sh
    npx wrangler login
    npx wrangler deploy --config worker/wrangler.jsonc
    ```
 
-4. Add these values as **Worker secrets** (never put them in GitHub, source files, or plain `vars`):
+4. Add these values as **Worker secrets** (never put them in GitHub, source files, or plain `vars`). Each `wrangler secret put` command publishes a new Worker version:
 
    ```sh
    npx wrangler secret put RESEND_API_KEY --config worker/wrangler.jsonc
